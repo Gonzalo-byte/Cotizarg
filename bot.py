@@ -36,12 +36,14 @@ def ETH(update, context):
 def get_eth_price():
     import requests
     import json
-    url = "https://coinranking1.p.rapidapi.com/coin/razxDUgYGNAdQ/price"
+    url =os.environ.get('URL_ETH')
 
     querystring = {"referenceCurrencyUuid":"yhjMzLPhuIDl"}
 
-    headers = os.environ.get('RAPID_API_HEADERS')
-
+    headers = {
+        "X-RapidAPI-Key": os.environ.get('RAPID_API_KEY'),
+        "X-RapidAPI-Host": os.environ.get('RAPID_API_HOST')
+    }
     response = requests.request("GET", url, headers=headers, params=querystring)
     response = json.loads(response.text)
     price = round(float(response['data']['price']),3)
@@ -50,7 +52,7 @@ def get_eth_price():
 def get_btc_price():
     import requests
     import json
-    url =os.environ.get('URL')
+    url =os.environ.get('URL_BTC')
 
     querystring = {"referenceCurrencyUuid":"yhjMzLPhuIDl"}
 
